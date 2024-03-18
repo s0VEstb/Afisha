@@ -8,6 +8,7 @@ class Category(models.Model):
         return self.name
 
 
+
 class Product(models.Model):
     title = models.CharField(max_length=50)
     description = models.TextField()
@@ -22,6 +23,8 @@ class Product(models.Model):
         return self.title
 
 
+STARS = ((i, str(i)) for i in range(1, 6))
+
 class Review(models.Model):
     text = models.CharField(max_length=50)
     product = models.ForeignKey(
@@ -29,9 +32,7 @@ class Review(models.Model):
         on_delete=models.CASCADE,
         related_name='reviews'
     )
+    stars = models.IntegerField(choices=STARS,null=True, blank=True)
 
     def __str__(self):
         return self.text
-
-
-

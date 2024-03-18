@@ -28,5 +28,6 @@ urlpatterns = [
     path('api/v1/category/', category_list_api_view),
     path('api/v1/category/<int:id>/', category_detail_api_view),
     path('api/v1/review/', review_list_api_view),
-    path('api/v1/review/<int:id>/', review_detail_api_view)
+    path('api/v1/review/<int:id>/', review_detail_api_view),
+    #path('api/v1/products/reviews/',)
 ]
