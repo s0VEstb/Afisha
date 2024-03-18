@@ -34,8 +34,3 @@ class CategorySerializer(serializers.ModelSerializer):
         count = category.category.count()
         return count
 
-
-class Review_for_products(serializers.ModelSerializer):
-    class Meta:
-        model = Product
-        fields = '__all__'
