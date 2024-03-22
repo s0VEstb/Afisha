@@ -17,8 +17,8 @@ def product_list_api_view(request):
         title = request.data.get('title')
         description = request.data.get('description')
         price = request.data.get('price')
-        category = request.data.get('category')
-        Product.objects.create(title=title, description=description, price=price, category_id=category)
+        category_id = request.data.get('category')
+        Product.objects.create(title=title, description=description, price=price, category_id=category_id)
 
         return Response(status=status.HTTP_201_CREATED)
 
@@ -36,7 +36,7 @@ def product_detail_api_view(request, id):
         product_detail.title = request.data.get('title')
         product_detail.description = request.data.get('description')
         product_detail.price = request.data.get('price')
-        product_detail.category = request.data.get('category')
+        product_detail.category_id = request.data.get('category')
         product_detail.save()
         return Response(status=status.HTTP_201_CREATED)
     elif request.method == 'DELETE':
@@ -82,9 +82,9 @@ def review_list_api_view(request):
         return Response(data=data.data)
     elif request.method == 'POST':
         text = request.data.get('text')
-        product = request.data.get('product')
+        product_id = request.data.get('product')
         stars = request.data.get('stars')
-        Review.objects.create(product_id=product, stars=stars, text=text)
+        Review.objects.create(product_id=product_id, stars=stars, text=text)
         return Response(status=status.HTTP_201_CREATED)
 
 @api_view(['GET', 'PUT', 'DELETE'])
@@ -98,7 +98,7 @@ def review_detail_api_view(request, id):
         return Response(data=data.data)
     elif request.method == 'PUT':
         review_detail.text = request.data.get('text')
-        review_detail.product = request.data.get('product')
+        review_detail.product_id = request.data.get('product')
         review_detail.stars = request.data.get('stars')
         review_detail.save()
         return Response(status=status.HTTP_201_CREATED)
