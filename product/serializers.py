@@ -5,7 +5,7 @@ from product.models import Category, Product, Review
 class ReviewSerializer(serializers.ModelSerializer):
     class Meta:
         model = Review
-        fields = ['text', 'stars']
+        fields = ['id', 'product', 'text', 'stars']
 
 
 class ProductSerializer(serializers.ModelSerializer):

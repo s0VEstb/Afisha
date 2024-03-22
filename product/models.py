@@ -32,7 +32,7 @@ class Review(models.Model):
         on_delete=models.CASCADE,
         related_name='reviews'
     )
-    stars = models.IntegerField(choices=STARS,null=True, blank=True)
+    stars = models.IntegerField(choices=STARS, null=True, blank=True)
 
     def __str__(self):
         return self.text
