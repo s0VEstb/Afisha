@@ -8,6 +8,13 @@ class ReviewSerializer(serializers.ModelSerializer):
         fields = ['id', 'product', 'text', 'stars']
 
 
+class ReviewValiditySerializer(serializers.Serializer):
+    text = serializers.CharField(min_length=1, max_length=100)
+    product = serializers.IntegerField(min_value=1)
+    stars = serializers.IntegerField(min_value=1)
+
+
+
 class ProductSerializer(serializers.ModelSerializer):
     reviews = ReviewSerializer(many=True)
     average_rating = serializers.SerializerMethodField()
@@ -24,6 +31,14 @@ class ProductSerializer(serializers.ModelSerializer):
         return None
 
 
+class ProductValiditySerializer(serializers.Serializer):
+    title = serializers.CharField(min_length=1, max_length=50)
+    description = serializers.CharField(min_length=1, max_length=100, required=False)
+    price = serializers.IntegerField(min_value=1)
+    category = serializers.IntegerField(min_value=1)
+
+
+
 class CategorySerializer(serializers.ModelSerializer):
     count_products = serializers.SerializerMethodField()
     class Meta:
@@ -33,4 +48,8 @@ class CategorySerializer(serializers.ModelSerializer):
     def get_count_products(self, category):
         count = category.category.count()
         return count
+
+
+class CategoryValiditySerializer(serializers.Serializer):
+    name = serializers.CharField(min_length=1, max_length=50)
 
