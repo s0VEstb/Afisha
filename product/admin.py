@@ -1,16 +1,15 @@
 from django.contrib import admin
-from product.models import Category, Product, Review
+from product.models import Category, Product, Review, Tag
 
 # Register your models here.
 @admin.register(Product)
 class PostAdmin(admin.ModelAdmin):
     list_display = ('title', 'price', 'category', 'description')
-    list_display_links = ('title',)
     list_editable = ('price', 'category')
-    list_filter = ('price', 'category')
-    search_fields = ('title', 'category')
+    search_fields = ('title', 'category', 'tags')
     readonly_fields = ('id',)
-    fields = ('title', 'price', 'category', 'description')
+    fields = ('title', 'price', 'category', 'description', 'tags')
 
 admin.site.register(Category)
 admin.site.register(Review)
+admin.site.register(Tag)

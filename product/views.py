@@ -24,6 +24,7 @@ def product_list_api_view(request):
         description = validator.validated_data['description']
         price = validator.validated_data['price']
         category_id = validator.validated_data['category']
+        tags = validator.validated_data['tags']
         # TODO Show a teacher,
         #  reviews = validator.validated_data['reviews']
         #  average_rating = validator.validated_data['average_rating']
@@ -52,6 +53,7 @@ def product_detail_api_view(request, id):
         product_detail.description = validator.validated_data['description']
         product_detail.price = validator.validated_data['price']
         product_detail.category_id = validator.validated_data['category']
+        product_detail.tags.set(validator.validated_data['tags'])
         product_detail.save()
         return Response(status=status.HTTP_201_CREATED)
 

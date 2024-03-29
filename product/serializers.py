@@ -1,5 +1,7 @@
 from rest_framework import serializers
-from product.models import Category, Product, Review
+from rest_framework.exceptions import ValidationError
+
+from product.models import Category, Product, Review, Tag
 
 
 class ReviewSerializer(serializers.ModelSerializer):
@@ -20,7 +22,7 @@ class ProductSerializer(serializers.ModelSerializer):
     average_rating = serializers.SerializerMethodField()
     class Meta:
         model = Product
-        fields = ['id', 'title', 'description', 'price', 'category', 'reviews', "average_rating"]
+        fields = ['id', 'title', 'description', 'price', 'category', 'tags', 'reviews', "average_rating"]
 
     def get_average_rating(self, product):
         reviews = product.reviews.all()
@@ -36,6 +38,14 @@ class ProductValiditySerializer(serializers.Serializer):
     description = serializers.CharField(min_length=1, max_length=100, required=False)
     price = serializers.IntegerField(min_value=1)
     category = serializers.IntegerField(min_value=1)
+    tags = serializers.ListField(child=serializers.IntegerField(min_value=1), required=False)
+
+    def validate_tags(self, tags):
+        tag_a = set(tags)
+        tags_db = Tag.objects.filter(id__in=tag_a)
+        if len(tags_db) != len(tags):
+            raise ValidationError("Tag doesn't exist")
+        return tags
 
 
 
