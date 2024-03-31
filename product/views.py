@@ -10,6 +10,7 @@ from product.serializers import (ProductSerializer, CategorySerializer, ReviewSe
 # Create your views here.
 @api_view(['GET', 'POST'])
 def product_list_api_view(request):
+    print(request.user)
     if request.method == 'GET':
         product_list = Product.objects.prefetch_related('reviews').all()
         data = ProductSerializer(product_list, many=True)
@@ -25,15 +26,14 @@ def product_list_api_view(request):
         price = validator.validated_data['price']
         category_id = validator.validated_data['category']
         tags = validator.validated_data['tags']
-        # TODO Show a teacher,
-        #  reviews = validator.validated_data['reviews']
-        #  average_rating = validator.validated_data['average_rating']
-        Product.objects.create(title=title, description=description, price=price, category_id=category_id)
+
+        Product.objects.create(title=title, description=description, price=price, category_id=category_id, tags=tags)
 
         return Response(status=status.HTTP_201_CREATED)
 
 @api_view(['GET', 'PUT', 'DELETE'])
 def product_detail_api_view(request, id):
+    print(request.user)
     try:
         product_detail = Product.objects.get(id=id)
     except Product.DoesNotExist:
@@ -76,7 +76,6 @@ def category_list_api_view(request):
                             data={'errors': validator.errors})
 
         name = validator.validated_data['name']
-        #TODO Show a teacher, count_products = validator.validated_data['count_products']
         Category.objects.create(name=name)
         return Response(status=status.HTTP_201_CREATED)
 

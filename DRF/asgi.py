@@ -1,5 +1,5 @@
 """
-ASGI config for DRF project.
+ASGI .env for DRF project.
 
 It exposes the ASGI callable as a module-level variable named ``application``.
 
