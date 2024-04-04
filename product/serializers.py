@@ -13,7 +13,7 @@ class ReviewSerializer(serializers.ModelSerializer):
 class ReviewValiditySerializer(serializers.Serializer):
     text = serializers.CharField(min_length=1, max_length=100)
     product = serializers.IntegerField(min_value=1)
-    stars = serializers.IntegerField(min_value=1)
+    stars = serializers.IntegerField(min_value=1, max_value=5)
 
 
 
@@ -58,8 +58,4 @@ class CategorySerializer(serializers.ModelSerializer):
     def get_count_products(self, category):
         count = category.category.count()
         return count
-
-
-class CategoryValiditySerializer(serializers.Serializer):
-    name = serializers.CharField(min_length=1, max_length=50)
 

@@ -17,9 +17,6 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
-from product.views import (product_list_api_view, product_detail_api_view,
-                           category_list_api_view, category_detail_api_view,
-                           review_detail_api_view, review_list_api_view)
 
 # urlpatterns = [
 #     path('admin/', admin.site.urls),

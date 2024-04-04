@@ -21,7 +21,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-vx9t4oqkju1l8yc1r72^-j_9ytlpmb3ssg6g1v9v857&*&f4c('
+SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -48,6 +48,7 @@ INSTALLED_APPS = [
 
 # Для Авторизации
 REST_FRAMEWORK = {
+    'PAGE_SIZE': 6,
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework.authentication.TokenAuthentication'
     ]
