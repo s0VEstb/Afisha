@@ -16,10 +16,10 @@ class ReviewValiditySerializer(serializers.Serializer):
     stars = serializers.IntegerField(min_value=1, max_value=5)
 
 
-
 class ProductSerializer(serializers.ModelSerializer):
     reviews = ReviewSerializer(many=True)
     average_rating = serializers.SerializerMethodField()
+
     class Meta:
         model = Product
         fields = ['id', 'title', 'description', 'price', 'category', 'tags', 'reviews', "average_rating"]

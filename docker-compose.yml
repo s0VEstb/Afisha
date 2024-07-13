@@ -1,0 +1,36 @@
+version: '3'
+
+services:
+  django:
+    build:
+      context: .
+    command: >
+      sh -c "python manage.py makemigrations &&
+             python manage.py migrate &&
+             gunicorn DRF.wsgi:application --bind 0.0.0.0:8000"
+    container_name: afisha
+    env_file:
+      - .env
+    ports:
+      - '8000:8000'
+    restart: unless-stopped
+    depends_on:
+      - postgres
+    volumes:
+      - static_volume:/usr/src/app/back_static
+      - media_volume:/usr/src/app/back_media
+
+  postgres:
+    image: postgres:latest
+    restart: always
+    env_file:
+      - .env
+    ports:
+      - "5433:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  static_volume:
+  media_volume:
+  postgres_data:

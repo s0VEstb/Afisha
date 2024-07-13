@@ -25,11 +25,11 @@ class Product(models.Model):
     category = models.ForeignKey(
         Category,
         on_delete=models.CASCADE,
-        related_name='category'
+        related_name='categories'
     )
     tags = models.ManyToManyField(
         Tag,
-        related_name='tags'
+        related_name='products'
     )
 
     def __str__(self):

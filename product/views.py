@@ -1,6 +1,5 @@
-from django.shortcuts import render
+
 from rest_framework import status
-from rest_framework.decorators import api_view
 from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView
 from rest_framework.pagination import PageNumberPagination
 from rest_framework.response import Response
@@ -11,9 +10,9 @@ from product.serializers import (ProductSerializer, CategorySerializer, ReviewSe
 
 # Create your views here.
 class ProductListAPIView(ListCreateAPIView):
-    queryset = Product.objects.prefetch_related('reviews').all()
+    queryset = Product.objects.all()
     serializer_class = ProductSerializer
-    pagination_class = PageNumberPagination
+    #pagination_class = PageNumberPagination
 
     def post(self, request, *args, **kwargs):
         validator = ProductValiditySerializer(data=request.data)
@@ -82,6 +81,7 @@ class ReviewListAPIView(ListCreateAPIView):
         if not validator.is_valid():
             return Response(status=status.HTTP_400_BAD_REQUEST,
                             data={'errors': validator.errors})
+        print(request.data)
 
         text = validator.validated_data['text']
         product_id = validator.validated_data['product']
@@ -111,3 +111,4 @@ class ReviewDetailAPIView(RetrieveUpdateDestroyAPIView):
         review_detail = self.get_object()
         review_detail.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+

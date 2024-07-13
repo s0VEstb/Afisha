@@ -5,11 +5,13 @@ django-jazzmin==2.6.0
 django-querycount==0.8.3
 djangorestframework==3.14.0
 drf-yasg==1.21.7
+gunicorn==22.0.0
 inflection==0.5.1
 packaging==24.0
 psycopg2==2.9.9
 python-decouple==3.8
 pytz==2024.1
 PyYAML==6.0.1
+setuptools==69.2.0
 sqlparse==0.4.4
 uritemplate==4.1.1
